@@ -99,6 +99,7 @@ declare interface TransformFner {
 declare interface CancelToken {
   promise: Promise<Cancel>
   reason?: Cancel
+  throwIfRequested: () => void
 }
 
 declare interface Canceler {
@@ -117,7 +118,7 @@ declare interface CancelTokenSource {
 declare interface CancelTokenStatic {
   new (cancelExecutor: CancelExecutor): CancelToken
 
-  source(): CancelTokenSource
+  source: () => CancelTokenSource
 }
 
 declare interface Cancel {

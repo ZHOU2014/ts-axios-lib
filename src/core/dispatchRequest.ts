@@ -26,3 +26,9 @@ function transformResponseData(res: AxiosResponse) {
   res.data = transform(res.data, res.headers, res.config.transformResponse)
   return res
 }
+
+function throwIfRequested(config: AxiosRequestConfig) {
+  if (config.cancelToken) {
+    config.cancelToken.throwIfRequested()
+  }
+}
