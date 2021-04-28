@@ -1,8 +1,11 @@
 const webpack = require('webpack');
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackConfig = require('./webpack.config');
+
+require('./server1');
 
 const app = express();
 
@@ -20,6 +23,7 @@ app.use(webpackHotMiddleware(compiler));
 
 app.use(express.static(__dirname));
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({extended: true}));
 const router = express.Router();
 
@@ -128,6 +132,10 @@ router.post('/cancel/post', function(req, res) {
   setTimeout(() => {
     res.json(req.body);
   }, 1000);
+});
+
+router.get('/more/get', function(req, res) {
+  res.json(req.cookies);
 });
 
 app.use(router);

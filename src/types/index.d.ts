@@ -23,6 +23,8 @@ declare interface AxiosRequestConfig {
   responseType?: XMLHttpRequestResponseType
   timeout?: number
 
+  withCredentials?: boolean
+
   transformRequest?: TransformFner | TransformFner[]
 
   transformResponse?: TransformFner | TransformFner[]
