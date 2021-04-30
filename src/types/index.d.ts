@@ -23,6 +23,8 @@ declare interface AxiosRequestConfig {
   responseType?: XMLHttpRequestResponseType
   timeout?: number
 
+  withCredentials?: boolean
+
   transformRequest?: TransformFner | TransformFner[]
 
   transformResponse?: TransformFner | TransformFner[]
@@ -99,6 +101,7 @@ declare interface TransformFner {
 declare interface CancelToken {
   promise: Promise<Cancel>
   reason?: Cancel
+  throwIfRequested: () => void
 }
 
 declare interface Canceler {
@@ -117,7 +120,7 @@ declare interface CancelTokenSource {
 declare interface CancelTokenStatic {
   new (cancelExecutor: CancelExecutor): CancelToken
 
-  source(): CancelTokenSource
+  source: () => CancelTokenSource
 }
 
 declare interface Cancel {
