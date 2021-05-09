@@ -31,6 +31,21 @@ declare interface AxiosRequestConfig {
 
   cancelToken?: CancelToken
 
+  xsrfCookieName?: string
+  xsrfHeaderName?: string
+
+  onUploadProgress?: (e: ProgressEvent) => void
+
+  onDownloadProgress?: (e: ProgressEvent) => void
+
+  auth?: AxiosBasicCredentials
+
+  validateStatus?: (status: number) => boolean
+
+  paramsSerializer?: (params: any) => string
+
+  baseURL?: string
+
   [propName: string]: any
 }
 
@@ -67,6 +82,8 @@ declare interface Axios {
   post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
   put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
   patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
+
+  getUri(config?: AxiosRequestConfig): string
 }
 
 declare interface AxiosInstance extends Axios {
@@ -79,6 +96,16 @@ declare interface AxiosStatic extends AxiosInstance {
   CancelToken: CancelTokenStatic
   Cancel: CancelStatic
   isCancel: (value: any) => boolean
+
+  all<T>(promises: Array<T | Promise<T>>): Promise<T[]>
+
+  spead<T, R>(callback: (...arg: T[]) => R): (arr: T[]) => R
+
+  Axios: AxiosClassStatic
+}
+
+declare interface AxiosClassStatic {
+  new (config: AxiosRequestConfig): Axios
 }
 
 declare interface InterceptorManagerImpl<T> {
@@ -129,4 +156,9 @@ declare interface Cancel {
 
 declare interface CancelStatic {
   new (message?: string): Cancel
+}
+
+declare interface AxiosBasicCredentials {
+  username: string
+  password: string
 }
